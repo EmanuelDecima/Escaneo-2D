@@ -1,0 +1,2 @@
+../Drivers/Perifericos/Src/mef.c:35:6:MEF_Init	0	static
+../Drivers/Perifericos/Src/mef.c:39:6:MEF_Update	56	static

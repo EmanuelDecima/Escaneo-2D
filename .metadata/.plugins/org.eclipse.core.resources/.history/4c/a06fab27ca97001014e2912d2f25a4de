@@ -1,0 +1,80 @@
+/**
+ * @file    gpio.c
+ * @brief   Implementación del driver GPIO
+ */
+
+#include "gpio.h"
+
+/* Funciones públicas --------------------------------------------------------*/
+
+void GPIO_EnableCLK(GPIO_TypeDef *port){
+	/*No se utiliza condicional multiple
+	 * por que no se permite en el el uso
+	 * de punteros como comprobacion
+	 */
+	if(port == GPIOA){
+		__HAL_RCC_GPIOA_CLK_ENABLE();
+	}
+	if(port == GPIOB){
+		__HAL_RCC_GPIOB_CLK_ENABLE();
+	}
+	if(port == GPIOC){
+		__HAL_RCC_GPIOC_CLK_ENABLE();
+	}
+	if(port == GPIOD){
+		__HAL_RCC_GPIOD_CLK_ENABLE();
+	}
+}
+
+void GPIO_InitPin(GPIO_TypeDef *port, uint16_t pin, GPIO_Mode_t mode)
+{
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    GPIO_InitStruct.Pin = pin;
+
+    switch (mode) {
+        case GPIO_MODE_INPUT_NOPULL:
+            GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+            GPIO_InitStruct.Pull = GPIO_NOPULL;
+            break;
+
+        case GPIO_MODE_OUTPUT:
+            GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+            GPIO_InitStruct.Pull = GPIO_NOPULL;
+            GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+            break;
+
+        case GPIO_MODE_INPUT_PULLUP:
+            GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+            GPIO_InitStruct.Pull = GPIO_PULLUP;
+            break;
+
+        case GPIO_MODE_INPUT_PULLDOWN:
+            GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+            GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+            break;
+
+        default:
+            /* USER CODE ERROR BEGIN */
+
+        	/* USER CODE ERROR END   */
+            break;
+    }
+
+    HAL_GPIO_Init(port, &GPIO_InitStruct);
+}
+
+void GPIO_WritePin(GPIO_TypeDef *port, uint16_t pin, GPIO_State_t state)
+{
+    HAL_GPIO_WritePin(port, pin, (state == GPIO_STATE_HIGH) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+}
+
+GPIO_State_t GPIO_ReadPin(GPIO_TypeDef *port, uint16_t pin)
+{
+    return (HAL_GPIO_ReadPin(port, pin) == GPIO_PIN_SET) ? GPIO_STATE_HIGH : GPIO_STATE_LOW;
+}
+
+void GPIO_TogglePin(GPIO_TypeDef *port, uint16_t pin)
+{
+    HAL_GPIO_TogglePin(port, pin);
+}

@@ -57,6 +57,18 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define BTN_DOWN_Pin GPIO_PIN_7
+#define BTN_DOWN_GPIO_Port GPIOA
+#define BTN_DOWN_EXTI_IRQn EXTI9_5_IRQn
+#define BTN_UP_Pin GPIO_PIN_0
+#define BTN_UP_GPIO_Port GPIOB
+#define BTN_UP_EXTI_IRQn EXTI0_IRQn
+#define BTN_RETURN_Pin GPIO_PIN_1
+#define BTN_RETURN_GPIO_Port GPIOB
+#define BTN_RETURN_EXTI_IRQn EXTI1_IRQn
+#define BTN_ENTER_Pin GPIO_PIN_2
+#define BTN_ENTER_GPIO_Port GPIOB
+#define BTN_ENTER_EXTI_IRQn EXTI2_IRQn
 
 /* USER CODE BEGIN Private defines */
 

@@ -1,0 +1,5 @@
+../Drivers/Perifericos/Src/gpio.c:10:6:GPIO_EnableCLK	5
+../Drivers/Perifericos/Src/gpio.c:29:6:GPIO_InitPin	4
+../Drivers/Perifericos/Src/gpio.c:67:6:GPIO_WritePin	1
+../Drivers/Perifericos/Src/gpio.c:72:14:GPIO_ReadPin	1
+../Drivers/Perifericos/Src/gpio.c:77:6:GPIO_TogglePin	1

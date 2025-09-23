@@ -1,0 +1,5 @@
+../Drivers/Perifericos/Src/button_handler.c:26:6:debounceFSM_Init	0	static
+../Drivers/Perifericos/Src/button_handler.c:39:6:Pressing_Signal	0	static
+../Drivers/Perifericos/Src/button_handler.c:49:6:Pressed_Signal	0	static
+../Drivers/Perifericos/Src/button_handler.c:61:6:Read_Button_Response	0	static
+../Drivers/Perifericos/Src/button_handler.c:70:15:Read_State	0	static

@@ -1,0 +1,18 @@
+/*
+ * menu.h
+ *
+ *  Created on: Sep 4, 2025
+ *      Author: Estudiante
+ */
+
+#ifndef API_INC_MENU_H_
+#define API_INC_MENU_H_
+
+#include "main.h"
+#include "ssd1306_oled.h"
+#include <string.h>
+
+void MENU_WriteOptionValue(uint8_t index,char* label);
+void MENU_screenUpdate(uint8_t option_selected);
+
+#endif /* API_INC_MENU_H_ */

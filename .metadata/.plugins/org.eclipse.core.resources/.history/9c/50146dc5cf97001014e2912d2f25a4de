@@ -1,0 +1,63 @@
+/*
+ * @file    clock_config.c
+ * @author  Enrique Emanuel Decima
+ * @brief   Implementacion del driver de motor paso a paso
+ *
+ */
+
+/**
+  * @brief TIM1 Initialization Function
+  * @param None
+  * @retval None
+  */
+
+#include "main.h"
+#include "motorpap.h"
+
+void MotorPAP_InitTIM(TIM_TypeDef *descriptor, uint32_t clock_Speed_MHz, TIM_HandleTypeDef *htim)
+{
+
+  /* USER CODE BEGIN TIM1_Init 0 */
+
+  /* USER CODE END TIM1_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM1_Init 1 */
+
+  /* USER CODE END TIM1_Init 1 */
+  htim->Instance = Descriptor;
+  htim->Init.Prescaler = Clock_Speed_MHz;
+  htim->Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim->Init.Period = 65535;
+  htim->Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim->Init.RepetitionCounter = 0;
+  htim->Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(htim) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(htim, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(htim, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+}
+
+void MotorPAP_Init(MotorPAP_HandleTypeDef* hmot, uint16_t PINA, uint16_t PINB, uint16_t PINC, uint16_t PIND,){
+	GPIO_EnableCLK(GPIOA);
+	GPIO_InitPin(GPIOA, PINA, GPIO_MODE_OUTPUT);
+	GPIO_InitPin(GPIOA, PINB, GPIO_MODE_OUTPUT);
+	GPIO_InitPin(GPIOA, PINC, GPIO_MODE_OUTPUT);
+	GPIO_InitPin(GPIOA, PIND, GPIO_MODE_OUTPUT);
+}
+
+

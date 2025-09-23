@@ -1,0 +1,2 @@
+../Drivers/Perifericos/Src/menu.c:28:6:MENU_WriteOptionValue	1
+../Drivers/Perifericos/Src/menu.c:32:6:MENU_screenUpdate	3

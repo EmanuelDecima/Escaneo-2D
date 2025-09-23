@@ -16,3 +16,36 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64 -data C:\Users\Estudia
 
 !ENTRY org.eclipse.cdt.core 1 0 2025-09-22 12:06:43.174
 !MESSAGE Indexed 'Firmware' (19 sources, 81 headers) in 10.2 sec: 4,288 declarations; 17,965 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.009%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-09-22 12:26:56.927
+!MESSAGE Indexed 'Firmware' (30 sources, 96 headers) in 5.36 sec: 7,424 declarations; 52,173 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0034%)
+!SESSION 2025-09-23 10:36:02.924 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_AR
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-09-23 10:37:35.874
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-09-23 10:37:35.878
+!MESSAGE Log4j2 initialized with config file C:\Users\Estudiante.DESKTOP-5OVK98J\Desktop\Escaneo-2D\Escaneo-2D\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-09-23 10:37:56.386
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-09-23 14:31:17.105 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_AR
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-09-23 14:31:39.434
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-09-23 14:31:39.438
+!MESSAGE Log4j2 initialized with config file C:\Users\Estudiante.DESKTOP-5OVK98J\Desktop\Escaneo-2D\Escaneo-2D\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-09-23 14:31:54.092
+!MESSAGE Started RMI Server, listening on port 41337

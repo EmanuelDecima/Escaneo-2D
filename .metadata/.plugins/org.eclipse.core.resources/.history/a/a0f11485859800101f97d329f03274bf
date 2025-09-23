@@ -1,0 +1,57 @@
+/*
+ * Button_Handler.c
+ *
+ *  Created on: Sep 3, 2025
+ *      Author: Estudiante
+ */
+
+#include <button_handler.h>
+
+#define BUTTONS_AVAILABLE 15
+
+typedef enum {
+	BUTTON_UP ,
+	BUTTON_FALLING ,
+	BUTTON_DOWN ,
+	BUTTON_RISING
+} ButtonState_t;
+
+typedef struct{
+	GPIO_TypeDef* Port;
+	uint16_t Pin;
+	ButtonState_t State;
+	bool Response;
+} Button_t;
+
+Button_t Button_Vector[BUTTONS_AVAILABLE];
+
+/*
+ * @brief Inicializacion de la MEF, establece la duracion del antirebote
+ * @param None
+ * @retval None
+ */
+void debounceFSM_Init(GPIO_TypeDef* Port, uint16_t Pin, uint16_t id){
+	Button_Vector[id].Port = Port;
+	Button_Vector[id].Pin = Pin;
+	Button_Vector[id].Response = false;
+	Button_Vector[id].State = BUTTON_UP;
+}
+
+
+void Pressing_Signal(uint16_t id){
+	Button_Vector[id].State = BUTTON_FALLING;
+}
+
+void Pressed_Signal(uint16_t id){
+	Button_Vector[id].State = BUTTON_DOWN;
+	Button_Vector[id].Response = true;
+}
+
+bool Read_Button_Response(uint16_t id){
+	if(Button_Vector[id].Response){
+		Button_Vector[id].Response = false;
+		return true;
+	}else{
+		return false;
+	}
+}

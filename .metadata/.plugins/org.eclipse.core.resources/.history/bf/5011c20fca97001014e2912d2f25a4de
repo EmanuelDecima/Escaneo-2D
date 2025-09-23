@@ -1,0 +1,17 @@
+/**
+ * @file    clock_config.h
+ * @author  Enrique Emanuel Decima
+ * @brief   Driver para controlar un motor paso a paso
+ * @version 1.0
+ * @date    2025
+ *
+ * @note    Este módulo encapsula la configuracion del reloj
+ * 			para simplificar el codigo en el main.c
+ */
+
+#ifndef PERIFERICOS_INC_MOTORPAP_H_
+#define PERIFERICOS_INC_MOTORPAP_H_
+
+
+
+#endif /* PERIFERICOS_INC_MOTORPAP_H_ */

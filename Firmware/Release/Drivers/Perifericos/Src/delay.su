@@ -1,0 +1,3 @@
+../Drivers/Perifericos/Src/delay.c:10:6:Delay_Init	0	static
+../Drivers/Perifericos/Src/delay.c:16:6:Delay_Read	16	static
+../Drivers/Perifericos/Src/delay.c:32:6:Delay_Write	0	static

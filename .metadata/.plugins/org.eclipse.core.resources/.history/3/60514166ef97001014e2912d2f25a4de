@@ -1,0 +1,42 @@
+/*
+ * menu.c
+ *
+ *  Created on: Sep 4, 2025
+ *      Author: Estudiante
+ */
+
+#include "menu.h"
+
+
+#define Font_sizeW 11
+#define Font_sizeH 18
+#define Screen_SizeW 128
+#define Screen_SizeH 64
+
+#if Font_sizeW 7
+
+#endif
+#if Font_sizeW 11
+
+#endif
+
+
+char* buffer[Screen_SizeW/Font_sizeW];
+
+void MENU_WriteOptionValue(uint8_t index,char* label){
+	buffer[index] = label;
+}
+
+void MENU_screenUpdate(uint8_t option_selected){
+	SSD1306_Fill(BLACK);
+	for(int i=0;i<(Screen_SizeW/Font_sizeW);i++){
+		SSD1306_GotoXY(0, (Font_sizeH*i));
+		if(i==option_selected){
+			SSD1306_DrawFilledRectangle(0, (i*Font_sizeH-1), Screen_SizeW, (Font_sizeH), WHITE);
+			SSD1306_Puts(buffer[i], &Font_11x18, BLACK);
+		}else{
+			SSD1306_Puts(buffer[i], &Font_11x18, WHITE);
+		}
+	}
+	SSD1306_UpdateScreen();
+}

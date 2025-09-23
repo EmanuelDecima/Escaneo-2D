@@ -1,0 +1,2 @@
+../Drivers/Perifericos/Src/menu.c:28:6:MENU_WriteOptionValue	0	static
+../Drivers/Perifericos/Src/menu.c:32:6:MENU_screenUpdate	40	static

@@ -1,0 +1,2 @@
+../Drivers/Perifericos/Src/clock_config.c:47:13:Error_Handler	0	static,ignoring_inline_asm
+../Drivers/Perifericos/Src/clock_config.c:10:13:SystemClock_Config	88	static
