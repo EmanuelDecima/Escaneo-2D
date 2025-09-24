@@ -15,7 +15,7 @@
 #include "motorpap.h"
 #include "gpio.h"
 
-uint32_t period_ms = 100;
+uint32_t period_ms = 10;
 
 void MotorPAP_InitTIM(uint32_t clock_Speed_MHz, TIM_HandleTypeDef *htim)
 {
@@ -69,57 +69,36 @@ void MotorPAP_Init(MotorPAP_HandleTypeDef* hmot, TIM_HandleTypeDef *htim, GPIO_T
 	GPIO_InitPin(Port, PINC, GPIO_MODE_OUTPUT);
 	GPIO_InitPin(Port, PIND, GPIO_MODE_OUTPUT);
 
-	MotorPAP_InitTIM(16, htim);
+	//MotorPAP_InitTIM(16, htim);
 }
 
-void MotorPAP_Step(MotorPAP_HandleTypeDef* hmot, MotorPAP_Direction direction){
-	if(direction == MOTORPAP_CLOCKWISE){
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_A, GPIO_STATE_HIGH);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_B, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_C, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_D, GPIO_STATE_LOW);
-		HAL_Delay(period_ms);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_A, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_B, GPIO_STATE_HIGH);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_C, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_D, GPIO_STATE_LOW);
-		HAL_Delay(period_ms);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_A, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_B, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_C, GPIO_STATE_HIGH);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_D, GPIO_STATE_LOW);
-		HAL_Delay(period_ms);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_A, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_B, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_C, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_D, GPIO_STATE_HIGH);
-	}else if (direction == MOTORPAP_ANTICLOCKWISE){
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_A, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_B, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_C, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_D, GPIO_STATE_HIGH);
-		HAL_Delay(period_ms);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_A, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_B, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_C, GPIO_STATE_HIGH);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_D, GPIO_STATE_LOW);
-		HAL_Delay(period_ms);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_A, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_B, GPIO_STATE_HIGH);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_C, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_D, GPIO_STATE_LOW);
-		HAL_Delay(period_ms);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_A, GPIO_STATE_HIGH);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_B, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_C, GPIO_STATE_LOW);
-		GPIO_WritePin(hmot->Port, hmot->Motor_Pin_D, GPIO_STATE_LOW);
-		HAL_Delay(period_ms);
-	}
+void MotorPAP_StepForward(MotorPAP_HandleTypeDef hmot){
+	GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_HIGH);
+	GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_STATE_LOW);
+	HAL_Delay(period_ms);
+	GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_STATE_HIGH);
+	GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_STATE_LOW);
+	HAL_Delay(period_ms);
+	GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_STATE_HIGH);
+	GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_STATE_LOW);
+	HAL_Delay(period_ms);
+	GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_STATE_HIGH);
 }
 
-void MotorPAP_OneRev(MotorPAP_HandleTypeDef* hmot, MotorPAP_Direction direction){
-	for(int i=0;i<100;i++){
-		MotorPAP_Step(hmot, direction);
+void MotorPAP_OneRev(MotorPAP_HandleTypeDef hmot){
+	for(int i=0;i<STEPS_FOR_REV;i++){
+		MotorPAP_StepForward(hmot);
+		HAL_Delay(50);
 	}
+	GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_STATE_LOW);
 }
 

@@ -52,8 +52,7 @@ void MEF_Update(int8_t btn_pressed){
 			  MotorPAP_HandleTypeDef motor1;
 			  MotorPAP_Init(&motor1, &htim1, GPIOA,
 			  GPIO_PIN_1, GPIO_PIN_2, GPIO_PIN_3, GPIO_PIN_4);
-			  HAL_Delay(2000);
-
+			  HAL_Delay(1000);
 			  MEF_Actual = WELCOME;
 			break;
 		case WELCOME:
@@ -63,7 +62,7 @@ void MEF_Update(int8_t btn_pressed){
 			SSD1306_Puts("Bienvenido", &Font_11x18, WHITE);
 			SSD1306_UpdateScreen();
 
-			HAL_Delay(2000);
+			HAL_Delay(1000);
 
 			/* Menu con SCAN seleccionado	*/
 			MENU_WriteOptionValue(0, "Escanear");
@@ -94,15 +93,16 @@ void MEF_Update(int8_t btn_pressed){
 				SSD1306_UpdateScreen();
 				MEF_Actual = SCANNING;
 			}
+			if(btn_pressed == BTN_RETURN_ID){
+				MENU_WriteOptionValue(0, "Escanear");
+				MENU_WriteOptionValue(1, "Enviar");
+				MENU_screenUpdate(0);
+				MEF_Actual = HOME_MENU_SCAN_SELECTED;
+			}
 		break;
 		case SCANNING:
-			for(int i=0;i<50;i++){
-				GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_STATE_HIGH);
-				HAL_Delay(100);
-				GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_STATE_LOW);
-				HAL_Delay(100);
-			}
-
+			MotorPAP_OneRev(motor1);
+			HAL_Delay(1000);
 			MENU_WriteOptionValue(0, "Escanear");
 			MENU_WriteOptionValue(1, "Enviar");
 			MENU_screenUpdate(0);
@@ -118,21 +118,36 @@ void MEF_Update(int8_t btn_pressed){
 		    if(btn_pressed == BTN_ENTER_ID){
 		    	SSD1306_Fill(BLACK);
 				SSD1306_GotoXY(0, 0);
-				SSD1306_Puts("Enviando", &Font_11x18, WHITE);
+				SSD1306_Puts("Conectando", &Font_11x18, WHITE);
 				SSD1306_UpdateScreen();
 				GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_HIGH);
 				MEF_Actual = SEND_MENU_WAITING;
 			}
 			break;
 		case SEND_MENU_WAITING:
-			HAL_Delay(3000);
+			HAL_Delay(2000);
+			GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_LOW);
+
+			SSD1306_Fill(BLACK);
+			SSD1306_GotoXY(0, 0);
+			SSD1306_Puts("Conectando", &Font_11x18, WHITE);
+			SSD1306_UpdateScreen();
+			GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_STATE_HIGH);
+			MEF_Actual = SENDING;
+			break;
+		case SENDING:
+			SSD1306_Fill(BLACK);
+			SSD1306_GotoXY(0, 0);
+			SSD1306_Puts("Enviando", &Font_11x18, WHITE);
+			SSD1306_GotoXY(0, 20);
+			SSD1306_Puts("Datos", &Font_11x18, WHITE);
+			SSD1306_UpdateScreen();
+			HAL_Delay(2000);
 			MENU_WriteOptionValue(0, "Escanear");
 			MENU_WriteOptionValue(1, "Enviar");
 			MENU_screenUpdate(1);
-			GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_LOW);
+			GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_STATE_LOW);
 			MEF_Actual = HOME_MENU_SEND_SELECTED;
-			break;
-		case SENDING:
 			break;
 		default:
 			MEF_Actual = INIT;

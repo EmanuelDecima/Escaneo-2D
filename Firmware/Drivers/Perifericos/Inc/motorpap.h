@@ -10,6 +10,8 @@
 #ifndef MOTORPAP_H_
 #define MOTORPAP_H_
 
+#define STEPS_FOR_REV 64
+
 /**
  * @brief Estructura que representa un servomotor SG90 y su configuración PWM.
  */
@@ -29,7 +31,7 @@ typedef enum{
 }MotorPAP_Direction;
 
 void MotorPAP_Init(MotorPAP_HandleTypeDef* hmot, TIM_HandleTypeDef *htim, GPIO_TypeDef* Port,uint16_t PINA, uint16_t PINB, uint16_t PINC, uint16_t PIND);
-void MotorPAP_Step(MotorPAP_HandleTypeDef* hmot, MotorPAP_Direction direction);
-void MotorPAP_OneRev(MotorPAP_HandleTypeDef* hmot, MotorPAP_Direction direction);
+void MotorPAP_StepForward(MotorPAP_HandleTypeDef hmot);
+void MotorPAP_OneRev(MotorPAP_HandleTypeDef hmot);
 
 #endif /* PERIFERICOS_INC_MOTORPAP_H_ */
