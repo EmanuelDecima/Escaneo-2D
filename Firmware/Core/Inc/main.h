@@ -69,6 +69,8 @@ void Error_Handler(void);
 #define BTN_ENTER_Pin GPIO_PIN_2
 #define BTN_ENTER_GPIO_Port GPIOB
 #define BTN_ENTER_EXTI_IRQn EXTI2_IRQn
+#define Trigger_Pin GPIO_PIN_12
+#define Trigger_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

@@ -10,11 +10,13 @@ C_SRCS += \
 ../Drivers/Perifericos/Src/delay.c \
 ../Drivers/Perifericos/Src/fonts.c \
 ../Drivers/Perifericos/Src/gpio.c \
+../Drivers/Perifericos/Src/hcsr04.c \
 ../Drivers/Perifericos/Src/i2c.c \
 ../Drivers/Perifericos/Src/mef.c \
 ../Drivers/Perifericos/Src/menu.c \
 ../Drivers/Perifericos/Src/motorpap.c \
-../Drivers/Perifericos/Src/ssd1306_oled.c 
+../Drivers/Perifericos/Src/ssd1306_oled.c \
+../Drivers/Perifericos/Src/uart.c 
 
 OBJS += \
 ./Drivers/Perifericos/Src/button_handler.o \
@@ -22,11 +24,13 @@ OBJS += \
 ./Drivers/Perifericos/Src/delay.o \
 ./Drivers/Perifericos/Src/fonts.o \
 ./Drivers/Perifericos/Src/gpio.o \
+./Drivers/Perifericos/Src/hcsr04.o \
 ./Drivers/Perifericos/Src/i2c.o \
 ./Drivers/Perifericos/Src/mef.o \
 ./Drivers/Perifericos/Src/menu.o \
 ./Drivers/Perifericos/Src/motorpap.o \
-./Drivers/Perifericos/Src/ssd1306_oled.o 
+./Drivers/Perifericos/Src/ssd1306_oled.o \
+./Drivers/Perifericos/Src/uart.o 
 
 C_DEPS += \
 ./Drivers/Perifericos/Src/button_handler.d \
@@ -34,11 +38,13 @@ C_DEPS += \
 ./Drivers/Perifericos/Src/delay.d \
 ./Drivers/Perifericos/Src/fonts.d \
 ./Drivers/Perifericos/Src/gpio.d \
+./Drivers/Perifericos/Src/hcsr04.d \
 ./Drivers/Perifericos/Src/i2c.d \
 ./Drivers/Perifericos/Src/mef.d \
 ./Drivers/Perifericos/Src/menu.d \
 ./Drivers/Perifericos/Src/motorpap.d \
-./Drivers/Perifericos/Src/ssd1306_oled.d 
+./Drivers/Perifericos/Src/ssd1306_oled.d \
+./Drivers/Perifericos/Src/uart.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -48,7 +54,7 @@ Drivers/Perifericos/Src/%.o Drivers/Perifericos/Src/%.su Drivers/Perifericos/Src
 clean: clean-Drivers-2f-Perifericos-2f-Src
 
 clean-Drivers-2f-Perifericos-2f-Src:
-	-$(RM) ./Drivers/Perifericos/Src/button_handler.cyclo ./Drivers/Perifericos/Src/button_handler.d ./Drivers/Perifericos/Src/button_handler.o ./Drivers/Perifericos/Src/button_handler.su ./Drivers/Perifericos/Src/clock_config.cyclo ./Drivers/Perifericos/Src/clock_config.d ./Drivers/Perifericos/Src/clock_config.o ./Drivers/Perifericos/Src/clock_config.su ./Drivers/Perifericos/Src/delay.cyclo ./Drivers/Perifericos/Src/delay.d ./Drivers/Perifericos/Src/delay.o ./Drivers/Perifericos/Src/delay.su ./Drivers/Perifericos/Src/fonts.cyclo ./Drivers/Perifericos/Src/fonts.d ./Drivers/Perifericos/Src/fonts.o ./Drivers/Perifericos/Src/fonts.su ./Drivers/Perifericos/Src/gpio.cyclo ./Drivers/Perifericos/Src/gpio.d ./Drivers/Perifericos/Src/gpio.o ./Drivers/Perifericos/Src/gpio.su ./Drivers/Perifericos/Src/i2c.cyclo ./Drivers/Perifericos/Src/i2c.d ./Drivers/Perifericos/Src/i2c.o ./Drivers/Perifericos/Src/i2c.su ./Drivers/Perifericos/Src/mef.cyclo ./Drivers/Perifericos/Src/mef.d ./Drivers/Perifericos/Src/mef.o ./Drivers/Perifericos/Src/mef.su ./Drivers/Perifericos/Src/menu.cyclo ./Drivers/Perifericos/Src/menu.d ./Drivers/Perifericos/Src/menu.o ./Drivers/Perifericos/Src/menu.su ./Drivers/Perifericos/Src/motorpap.cyclo ./Drivers/Perifericos/Src/motorpap.d ./Drivers/Perifericos/Src/motorpap.o ./Drivers/Perifericos/Src/motorpap.su ./Drivers/Perifericos/Src/ssd1306_oled.cyclo ./Drivers/Perifericos/Src/ssd1306_oled.d ./Drivers/Perifericos/Src/ssd1306_oled.o ./Drivers/Perifericos/Src/ssd1306_oled.su
+	-$(RM) ./Drivers/Perifericos/Src/button_handler.cyclo ./Drivers/Perifericos/Src/button_handler.d ./Drivers/Perifericos/Src/button_handler.o ./Drivers/Perifericos/Src/button_handler.su ./Drivers/Perifericos/Src/clock_config.cyclo ./Drivers/Perifericos/Src/clock_config.d ./Drivers/Perifericos/Src/clock_config.o ./Drivers/Perifericos/Src/clock_config.su ./Drivers/Perifericos/Src/delay.cyclo ./Drivers/Perifericos/Src/delay.d ./Drivers/Perifericos/Src/delay.o ./Drivers/Perifericos/Src/delay.su ./Drivers/Perifericos/Src/fonts.cyclo ./Drivers/Perifericos/Src/fonts.d ./Drivers/Perifericos/Src/fonts.o ./Drivers/Perifericos/Src/fonts.su ./Drivers/Perifericos/Src/gpio.cyclo ./Drivers/Perifericos/Src/gpio.d ./Drivers/Perifericos/Src/gpio.o ./Drivers/Perifericos/Src/gpio.su ./Drivers/Perifericos/Src/hcsr04.cyclo ./Drivers/Perifericos/Src/hcsr04.d ./Drivers/Perifericos/Src/hcsr04.o ./Drivers/Perifericos/Src/hcsr04.su ./Drivers/Perifericos/Src/i2c.cyclo ./Drivers/Perifericos/Src/i2c.d ./Drivers/Perifericos/Src/i2c.o ./Drivers/Perifericos/Src/i2c.su ./Drivers/Perifericos/Src/mef.cyclo ./Drivers/Perifericos/Src/mef.d ./Drivers/Perifericos/Src/mef.o ./Drivers/Perifericos/Src/mef.su ./Drivers/Perifericos/Src/menu.cyclo ./Drivers/Perifericos/Src/menu.d ./Drivers/Perifericos/Src/menu.o ./Drivers/Perifericos/Src/menu.su ./Drivers/Perifericos/Src/motorpap.cyclo ./Drivers/Perifericos/Src/motorpap.d ./Drivers/Perifericos/Src/motorpap.o ./Drivers/Perifericos/Src/motorpap.su ./Drivers/Perifericos/Src/ssd1306_oled.cyclo ./Drivers/Perifericos/Src/ssd1306_oled.d ./Drivers/Perifericos/Src/ssd1306_oled.o ./Drivers/Perifericos/Src/ssd1306_oled.su ./Drivers/Perifericos/Src/uart.cyclo ./Drivers/Perifericos/Src/uart.d ./Drivers/Perifericos/Src/uart.o ./Drivers/Perifericos/Src/uart.su
 
 .PHONY: clean-Drivers-2f-Perifericos-2f-Src
 

@@ -1,0 +1,6 @@
+../Drivers/Perifericos/Src/uart.c:8:15:UART_Init	8	static
+../Drivers/Perifericos/Src/uart.c:16:15:UART_Send	8	static
+../Drivers/Perifericos/Src/uart.c:40:15:UART_Receive	8	static
+../Drivers/Perifericos/Src/uart.c:64:15:UART_SendString	16	static
+../Drivers/Perifericos/Src/uart.c:81:10:UART_ReadNumber	48	static
+../Drivers/Perifericos/Src/uart.c:121:6:UART_SendNumber	24	static

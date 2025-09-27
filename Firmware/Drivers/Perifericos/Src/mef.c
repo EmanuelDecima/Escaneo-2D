@@ -31,6 +31,8 @@ enum{
 }; //NO CONFUNDIR CON EL PIN ASOCIADO (Ej: PA7), ESTO ES EL ID
 
 MefState_t MEF_Actual;	//Variable de estado global
+uint8_t measure;
+uint8_t data = 0;
 
 void MEF_Init(){
 	MEF_Actual = INIT;
@@ -52,6 +54,10 @@ void MEF_Update(int8_t btn_pressed){
 			  MotorPAP_HandleTypeDef motor1;
 			  MotorPAP_Init(&motor1, &htim1, GPIOA,
 			  GPIO_PIN_1, GPIO_PIN_2, GPIO_PIN_3, GPIO_PIN_4);
+
+			  UART_Init(&huart1);
+			  HCSR04_Init();
+
 			  HAL_Delay(1000);
 			  MEF_Actual = WELCOME;
 			break;
@@ -101,7 +107,11 @@ void MEF_Update(int8_t btn_pressed){
 			}
 		break;
 		case SCANNING:
-			MotorPAP_OneRev(motor1);
+			for(int i=0; i<512; i++){
+				measure = HCSR04_GetMeasure();
+				MotorPAP_StepForward(motor1);
+				UART_SendNumber(&huart1, measure);
+			}
 			HAL_Delay(1000);
 			MENU_WriteOptionValue(0, "Escanear");
 			MENU_WriteOptionValue(1, "Enviar");
@@ -127,13 +137,20 @@ void MEF_Update(int8_t btn_pressed){
 		case SEND_MENU_WAITING:
 			HAL_Delay(2000);
 			GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_LOW);
-
+			data = 0;
 			SSD1306_Fill(BLACK);
 			SSD1306_GotoXY(0, 0);
 			SSD1306_Puts("Conectando", &Font_11x18, WHITE);
 			SSD1306_UpdateScreen();
 			GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_STATE_HIGH);
-			MEF_Actual = SENDING;
+			UART_SendString(&huart1, "OK");
+			HAL_UART_Receive_IT(&huart1, &data, 1);
+			while(data == 0){}
+			if(data != 0){
+				MEF_Actual = SENDING;
+			}else{
+				MEF_Actual = HOME_MENU_SEND_SELECTED;
+			}
 			break;
 		case SENDING:
 			SSD1306_Fill(BLACK);
@@ -153,4 +170,11 @@ void MEF_Update(int8_t btn_pressed){
 			MEF_Actual = INIT;
 			break;
 	}
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if(huart->Instance == USART1){
+	  data = 1;
+  }
 }

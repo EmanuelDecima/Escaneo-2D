@@ -37,6 +37,8 @@ Drivers/Perifericos/Src/mef.o: ../Drivers/Perifericos/Src/mef.c \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/ssd1306_oled.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/fonts.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/motorpap.h \
+ C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/hcsr04.h \
+ C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/uart.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/menu.h
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/mef.h:
 ../Core/Inc/main.h:
@@ -77,4 +79,6 @@ C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drive
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/ssd1306_oled.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/fonts.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/motorpap.h:
+C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/hcsr04.h:
+C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/uart.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/menu.h:

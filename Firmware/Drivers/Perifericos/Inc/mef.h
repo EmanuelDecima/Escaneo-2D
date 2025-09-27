@@ -22,6 +22,8 @@
 #include "ssd1306_oled.h"
 #include "fonts.h"
 #include "motorpap.h"
+#include "hcsr04.h"
+#include "uart.h"
 
 #include "menu.h"
 
