@@ -1,4 +1,2 @@
-../Drivers/Perifericos/Src/motorpap.c:20:6:MotorPAP_InitTIM	40	static
-../Drivers/Perifericos/Src/motorpap.c:57:6:MotorPAP_Init	24	static
-../Drivers/Perifericos/Src/motorpap.c:75:6:MotorPAP_StepForward	16	static
-../Drivers/Perifericos/Src/motorpap.c:97:6:MotorPAP_OneRev	16	static
+../Drivers/Perifericos/Src/motorpap.c:20:6:MotorPAP_Init	0	static
+../Drivers/Perifericos/Src/motorpap.c:29:6:MotorPAP_StepForward	16	static

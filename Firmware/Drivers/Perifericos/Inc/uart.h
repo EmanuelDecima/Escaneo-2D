@@ -89,5 +89,7 @@ uint32_t UART_ReadNumber(UART_HandleTypeDef *huart);
  */
 void UART_SendNumber(UART_HandleTypeDef *huart, uint32_t data);
 
+HAL_StatusTypeDef UART_Handshake(UART_HandleTypeDef *huart, uint32_t Timeout);
+
 #endif /* UART_H_ */
 

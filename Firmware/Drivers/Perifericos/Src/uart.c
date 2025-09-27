@@ -5,6 +5,9 @@
 
 #include "uart.h"
 
+#define HANDSHAKE_SEND_CHAR  'o'
+#define HANDSHAKE_REPLY_CHAR 'k'
+
 UART_Status_t UART_Init(UART_HandleTypeDef *huart)
 {
     if (HAL_UART_Init(huart) == HAL_OK) {
@@ -124,4 +127,26 @@ void UART_SendNumber(UART_HandleTypeDef *huart, uint32_t data)
     sprintf(str, "%lu", data);
     HAL_UART_Transmit(huart, (uint8_t*)str, strlen(str), HAL_MAX_DELAY);
     HAL_UART_Transmit(huart, (uint8_t*)"\r\n", 2, HAL_MAX_DELAY);
+}
+
+HAL_StatusTypeDef UART_Handshake(UART_HandleTypeDef *huart, uint32_t Timeout){
+    uint8_t txChar = HANDSHAKE_SEND_CHAR;
+    uint8_t rxChar = 0;
+
+    // Enviar carácter
+    if (HAL_UART_Transmit(huart, &txChar, 1, Timeout) != HAL_OK) {
+        return HAL_ERROR;  // Error al transmitir
+    }
+
+    // Esperar respuesta
+    if (HAL_UART_Receive(huart, &rxChar, 1, Timeout) != HAL_OK) {
+        return HAL_TIMEOUT;  // No se recibió nada
+    }
+
+    // Verificar si la respuesta es la esperada
+    if (rxChar == HANDSHAKE_REPLY_CHAR) {
+        return HAL_OK;  // Handshake exitoso
+    } else {
+        return HAL_ERROR;  // Carácter inesperado
+    }
 }

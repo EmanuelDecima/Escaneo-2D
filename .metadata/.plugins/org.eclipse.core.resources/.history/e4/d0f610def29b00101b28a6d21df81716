@@ -1,0 +1,129 @@
+/**
+ * @file    mef.c
+ * @brief   Implementación de la maquina de estados finita
+ */
+
+#include "mef.h"
+
+extern I2C_HandleTypeDef hi2c1;
+
+extern TIM_HandleTypeDef htim1;
+
+extern UART_HandleTypeDef huart1;
+
+typedef enum {
+	INIT,
+	WELCOME,
+	HOME_MENU_SCAN_SELECTED,
+	SCAN_MENU_START_SELECTED,
+	SCANNING,
+	HOME_MENU_SEND_SELECTED,
+	SEND_MENU_WAITING,
+	SENDING
+} MefState_t;
+
+MefState_t MEF_Actual;	//Variable de estado global
+uint8_t measure;
+
+void MEF_Init(){
+	MEF_Actual = INIT;
+}
+
+void MEF_Update(int8_t btn_pressed){
+	switch(MEF_Actual){
+		case INIT:
+			  SSD1306_Init();
+			  MENU_ShowMsgInitState();
+			  MotorPAP_HandleTypeDef motor1;
+			  MotorPAP_Init(&motor1, MOTOR_GPIO_Port, MOTOR_A_Pin, MOTOR_B_Pin, MOTOR_C_Pin, MOTOR_D_Pin);
+			  HCSR04_Init();
+			  HAL_Delay(1000);
+			  MEF_Actual = WELCOME;
+			break;
+		case WELCOME:
+			MENU_ShowMsgWelcomeState();
+			HAL_Delay(1000);
+			MENU_HomeMenu_ScanSelected();
+			MEF_Actual = HOME_MENU_SCAN_SELECTED;
+			break;
+		case HOME_MENU_SCAN_SELECTED:
+			if(btn_pressed == BTN_DOWN_ID){
+				MENU_HomeMenu_SendSelected();
+				MEF_Actual = HOME_MENU_SEND_SELECTED;
+			}
+			if(btn_pressed == BTN_ENTER_ID){
+				MENU_ScanMenu_StartSelected();
+				MEF_Actual = SCAN_MENU_START_SELECTED;
+			}
+			break;
+		case SCAN_MENU_START_SELECTED:
+			if(btn_pressed == BTN_ENTER_ID){
+				SSD1306_Fill(BLACK);
+				SSD1306_GotoXY(0, 0);
+				SSD1306_Puts("Escaneando", &Font_11x18, WHITE);
+				SSD1306_UpdateScreen();
+				MEF_Actual = SCANNING;
+			}
+			if(btn_pressed == BTN_RETURN_ID){
+				MENU_HomeMenu_ScanSelected();
+				MEF_Actual = HOME_MENU_SCAN_SELECTED;
+			}
+		break;
+		case SCANNING:
+			for(int i=0; i<512; i++){
+				measure = HCSR04_GetMeasure();
+				MotorPAP_StepForward(motor1);
+				UART_SendNumber(&huart1, measure);
+			}
+			HAL_Delay(1000);
+			MENU_HomeMenu_ScanSelected();
+			MEF_Actual = HOME_MENU_SCAN_SELECTED;
+			break;
+		case HOME_MENU_SEND_SELECTED:
+		    if(btn_pressed == BTN_UP_ID){
+		    	MENU_HomeMenu_ScanSelected();
+				MEF_Actual = HOME_MENU_SCAN_SELECTED;
+			}
+		    if(btn_pressed == BTN_ENTER_ID){
+		    	SSD1306_Fill(BLACK);
+				SSD1306_GotoXY(0, 0);
+				SSD1306_Puts("Conectando", &Font_11x18, WHITE);
+				SSD1306_UpdateScreen();
+				GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_HIGH);
+				MEF_Actual = SEND_MENU_WAITING;
+			}
+			break;
+		case SEND_MENU_WAITING:
+			HAL_Delay(2000);
+			GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_LOW);
+			SSD1306_Fill(BLACK);
+			SSD1306_GotoXY(0, 0);
+			SSD1306_Puts("Conectando", &Font_11x18, WHITE);
+			SSD1306_UpdateScreen();
+			GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_STATE_HIGH);
+			UART_SendString(&huart1, "OK");
+			HAL_UART_Receive_IT(&huart1, &data, 1);
+			while(data == 0){}
+			if(data != 0){
+				MEF_Actual = SENDING;
+			}else{
+				MEF_Actual = HOME_MENU_SEND_SELECTED;
+			}
+			break;
+		case SENDING:
+			SSD1306_Fill(BLACK);
+			SSD1306_GotoXY(0, 0);
+			SSD1306_Puts("Enviando", &Font_11x18, WHITE);
+			SSD1306_GotoXY(0, 20);
+			SSD1306_Puts("Datos", &Font_11x18, WHITE);
+			SSD1306_UpdateScreen();
+			HAL_Delay(2000);
+			MENU_HomeMenu_SendSelected();
+			GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_STATE_LOW);
+			MEF_Actual = HOME_MENU_SEND_SELECTED;
+			break;
+		default:
+			MEF_Actual = INIT;
+			break;
+	}
+}

@@ -34,23 +34,23 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/uart.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/i2c.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/delay.h \
+ C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/button_handler.h \
+ C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/delay.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/motorpap.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/ssd1306_oled.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/fonts.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/fonts.h \
+ C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/hcsr04.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/menu.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/ssd1306_oled.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/mef.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/clock_config.h \
- C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/delay.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/gpio.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/i2c.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/motorpap.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/hcsr04.h \
  C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/uart.h \
- C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/menu.h \
- C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/button_handler.h \
- C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/hcsr04.h
+ C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/menu.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -87,20 +87,20 @@ C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drive
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/uart.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/i2c.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/delay.h:
+C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/button_handler.h:
+C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/delay.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/motorpap.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/ssd1306_oled.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/fonts.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/fonts.h:
+C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/hcsr04.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/menu.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/ssd1306_oled.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/mef.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/clock_config.h:
-C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/delay.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/gpio.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/i2c.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/motorpap.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/hcsr04.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/uart.h:
 C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/menu.h:
-C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/button_handler.h:
-C:/Users/Estudiante.DESKTOP-5OVK98J/Desktop/Escaneo-2D/Escaneo-2D/Firmware/Drivers/Perifericos/Inc/hcsr04.h:

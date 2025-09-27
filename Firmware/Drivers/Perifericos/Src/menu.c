@@ -9,17 +9,19 @@
 
 
 #define Font_sizeW 11
-#define Font_sizeH 18
 #define Screen_SizeW 128
 #define Screen_SizeH 64
 
 #if Font_sizeW == 7
+#define Font_sizeH 10
 #define PFONT &Font_7x10
 #endif
 #if Font_sizeW == 11
+#define Font_sizeH 18
 #define PFONT &Font_11x18
 #endif
 #if Font_sizeW == 16
+#define Font_sizeH 26
 #define PFONT &Font_16x26
 #endif
 
@@ -40,5 +42,71 @@ void MENU_screenUpdate(uint8_t option_selected){
 			SSD1306_Puts(buffer[i], PFONT, WHITE);
 		}
 	}
+	SSD1306_UpdateScreen();
+}
+
+void MENU_ShowMsgInitState(){
+	SSD1306_Fill(BLACK);
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("Iniciando", &Font_11x18, WHITE);
+	SSD1306_GotoXY(0, 20);
+	SSD1306_Puts("el Sistema", &Font_11x18, WHITE);
+	SSD1306_UpdateScreen();
+}
+
+void MENU_ShowMsgWelcomeState(){
+	SSD1306_Fill(BLACK);
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("Bienvenido", &Font_11x18, WHITE);
+	SSD1306_UpdateScreen();
+}
+
+void MENU_HomeMenu_ScanSelected(){
+	MENU_WriteOptionValue(0, "Escanear");
+	MENU_WriteOptionValue(1, "Enviar");
+	MENU_screenUpdate(0);
+}
+
+void MENU_HomeMenu_SendSelected(){
+	MENU_WriteOptionValue(0, "Escanear");
+	MENU_WriteOptionValue(1, "Enviar");
+	MENU_screenUpdate(1);
+}
+
+void MENU_ScanMenu_StartSelected(){
+	MENU_WriteOptionValue(0, "Iniciar");
+	MENU_WriteOptionValue(1, "");
+	MENU_screenUpdate(0);
+}
+
+void MENU_ShowMsgConnecting(){
+	SSD1306_Fill(BLACK);
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("Conectando", &Font_11x18, WHITE);
+	SSD1306_UpdateScreen();
+}
+
+void MENU_ShowMsgSendingData(){
+	SSD1306_Fill(BLACK);
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("Enviando", &Font_11x18, WHITE);
+	SSD1306_GotoXY(0, 20);
+	SSD1306_Puts("Datos", &Font_11x18, WHITE);
+	SSD1306_UpdateScreen();
+}
+
+void MENU_ShowMsgConnectionError(){
+	SSD1306_Fill(BLACK);
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("Conexion", &Font_11x18, WHITE);
+	SSD1306_GotoXY(0, 20);
+	SSD1306_Puts("Fallida", &Font_11x18, WHITE);
+	SSD1306_UpdateScreen();
+}
+
+void MENU_ShowMsgScanning(){
+	SSD1306_Fill(BLACK);
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("Escaneando", &Font_11x18, WHITE);
 	SSD1306_UpdateScreen();
 }

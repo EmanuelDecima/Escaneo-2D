@@ -1,3 +1,2 @@
-../Drivers/Perifericos/Src/mef.c:37:6:MEF_Init	1
-../Drivers/Perifericos/Src/mef.c:41:6:MEF_Update	17
-../Drivers/Perifericos/Src/mef.c:175:6:HAL_UART_RxCpltCallback	2
+../Drivers/Perifericos/Src/mef.c:30:6:MEF_Init	1
+../Drivers/Perifericos/Src/mef.c:34:6:MEF_Update	19

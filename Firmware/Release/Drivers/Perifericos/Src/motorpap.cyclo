@@ -1,4 +1,2 @@
-../Drivers/Perifericos/Src/motorpap.c:20:6:MotorPAP_InitTIM	4
-../Drivers/Perifericos/Src/motorpap.c:57:6:MotorPAP_Init	1
-../Drivers/Perifericos/Src/motorpap.c:75:6:MotorPAP_StepForward	1
-../Drivers/Perifericos/Src/motorpap.c:97:6:MotorPAP_OneRev	2
+../Drivers/Perifericos/Src/motorpap.c:20:6:MotorPAP_Init	1
+../Drivers/Perifericos/Src/motorpap.c:29:6:MotorPAP_StepForward	1

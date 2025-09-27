@@ -1,6 +1,7 @@
-../Drivers/Perifericos/Src/uart.c:8:15:UART_Init	1
-../Drivers/Perifericos/Src/uart.c:16:15:UART_Send	4
-../Drivers/Perifericos/Src/uart.c:40:15:UART_Receive	4
-../Drivers/Perifericos/Src/uart.c:64:15:UART_SendString	2
-../Drivers/Perifericos/Src/uart.c:81:10:UART_ReadNumber	6
-../Drivers/Perifericos/Src/uart.c:121:6:UART_SendNumber	1
+../Drivers/Perifericos/Src/uart.c:11:15:UART_Init	1
+../Drivers/Perifericos/Src/uart.c:19:15:UART_Send	4
+../Drivers/Perifericos/Src/uart.c:43:15:UART_Receive	4
+../Drivers/Perifericos/Src/uart.c:67:15:UART_SendString	2
+../Drivers/Perifericos/Src/uart.c:84:10:UART_ReadNumber	6
+../Drivers/Perifericos/Src/uart.c:124:6:UART_SendNumber	1
+../Drivers/Perifericos/Src/uart.c:132:19:UART_Handshake	3

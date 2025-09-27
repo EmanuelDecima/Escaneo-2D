@@ -49,9 +49,9 @@ static void HCSR04_Delay_us (uint16_t us){
  * @retval None
  */
 static void HCSR04_Read(){
-	HAL_GPIO_WritePin(Trigger_GPIO_Port, Trigger_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(TRIGGER_GPIO_Port, TRIGGER_Pin, GPIO_PIN_SET);
 	HCSR04_Delay_us(10);
-	HAL_GPIO_WritePin(Trigger_GPIO_Port, Trigger_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(TRIGGER_GPIO_Port, TRIGGER_Pin, GPIO_PIN_RESET);
 	__HAL_TIM_ENABLE_IT(&htim3	, TIM_IT_CC1);
 }
 

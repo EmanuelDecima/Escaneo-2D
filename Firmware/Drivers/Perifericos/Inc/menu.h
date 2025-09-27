@@ -12,7 +12,18 @@
 #include "ssd1306_oled.h"
 #include <string.h>
 
+/* Funciones elementales		*/
 void MENU_WriteOptionValue(uint8_t index,char* label);
 void MENU_screenUpdate(uint8_t option_selected);
+/* Funciones de la aplicacion	*/
+void MENU_ShowMsgInitState();
+void MENU_ShowMsgWelcomeState();
+void MENU_HomeMenu_ScanSelected();
+void MENU_HomeMenu_SendSelected();
+void MENU_ScanMenu_StartSelected();
+void MENU_ShowMsgConnecting();
+void MENU_ShowMsgSendingData();
+void MENU_ShowMsgConnectionError();
+void MENU_ShowMsgScanning();
 
 #endif /* API_INC_MENU_H_ */

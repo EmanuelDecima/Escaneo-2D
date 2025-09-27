@@ -1,0 +1,59 @@
+/*
+ * @file    clock_config.c
+ * @author  Enrique Emanuel Decima
+ * @brief   Implementacion del driver de motor paso a paso
+ *
+ */
+
+/**
+  * @brief TIM1 Initialization Function
+  * @param None
+  * @retval None
+  */
+
+#include "main.h"
+#include "motorpap.h"
+#include "gpio.h"
+
+uint32_t period_ms = 10;
+
+void MotorPAP_Init(MotorPAP_HandleTypeDef* hmot, GPIO_TypeDef* Port,uint16_t PINA, uint16_t PINB, uint16_t PINC, uint16_t PIND){
+	hmot->htim = htim;
+	hmot->Port = Port;
+	hmot->Motor_Pin_A = PINA;
+	hmot->Motor_Pin_B = PINB;
+	hmot->Motor_Pin_C = PINC;
+	hmot->Motor_Pin_D = PIND;
+	hmot->Angle = 0;
+}
+
+void MotorPAP_StepForward(MotorPAP_HandleTypeDef hmot){
+	GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_HIGH);
+	GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_STATE_LOW);
+	HAL_Delay(period_ms);
+	GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_STATE_HIGH);
+	GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_STATE_LOW);
+	HAL_Delay(period_ms);
+	GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_STATE_HIGH);
+	GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_STATE_LOW);
+	HAL_Delay(period_ms);
+	GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_STATE_LOW);
+	GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_STATE_HIGH);
+}
+
+void MotorPAP_OneRev(MotorPAP_HandleTypeDef hmot){
+	for(int i=0;i<STEPS_FOR_REV;i++){
+		MotorPAP_StepForward(hmot);
+		HAL_Delay(50);
+	}
+	GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_STATE_LOW);
+}
+

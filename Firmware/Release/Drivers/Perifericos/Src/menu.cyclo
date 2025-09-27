@@ -1,2 +1,11 @@
-../Drivers/Perifericos/Src/menu.c:28:6:MENU_WriteOptionValue	1
-../Drivers/Perifericos/Src/menu.c:32:6:MENU_screenUpdate	3
+../Drivers/Perifericos/Src/menu.c:30:6:MENU_WriteOptionValue	1
+../Drivers/Perifericos/Src/menu.c:34:6:MENU_screenUpdate	3
+../Drivers/Perifericos/Src/menu.c:48:6:MENU_ShowMsgInitState	1
+../Drivers/Perifericos/Src/menu.c:57:6:MENU_ShowMsgWelcomeState	1
+../Drivers/Perifericos/Src/menu.c:64:6:MENU_HomeMenu_ScanSelected	1
+../Drivers/Perifericos/Src/menu.c:70:6:MENU_HomeMenu_SendSelected	1
+../Drivers/Perifericos/Src/menu.c:76:6:MENU_ScanMenu_StartSelected	1
+../Drivers/Perifericos/Src/menu.c:82:6:MENU_ShowMsgConnecting	1
+../Drivers/Perifericos/Src/menu.c:89:6:MENU_ShowMsgSendingData	1
+../Drivers/Perifericos/Src/menu.c:98:6:MENU_ShowMsgConnectionError	1
+../Drivers/Perifericos/Src/menu.c:107:6:MENU_ShowMsgScanning	1
