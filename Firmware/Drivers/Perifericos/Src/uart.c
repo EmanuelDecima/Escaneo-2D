@@ -81,43 +81,32 @@ UART_Status_t UART_SendString(UART_HandleTypeDef *huart, const char *str)
 
 
 
-uint32_t UART_ReadNumber(UART_HandleTypeDef *huart)
+uint32_t UART_ReadNumber(UART_HandleTypeDef *huart, uint32_t Timeout)
 {
     uint8_t rxChar;
-    char buffer[16];      /* Hasta 15 dígitos + null */
+    char buffer[16];
     uint8_t index = 0;
 
     while (1) {
-        /* Recibir un caracter */
-        if (HAL_UART_Receive(huart, &rxChar, 1, HAL_MAX_DELAY) != HAL_OK) {
-            return UINT32_MAX; /* Error de hardware */
+        if (HAL_UART_Receive(huart, &rxChar, 1, Timeout) != HAL_OK) {
+            return UINT32_MAX;
         }
-
-        /* Ignorar retorno de carro */
         if (rxChar == '\r') {
             continue;
         }
-
-        /* Newline = fin de número */
         if (rxChar == '\n') {
             buffer[index] = '\0';
             break;
         }
-
-        /* Verificar que es dígito */
         if (!isdigit(rxChar)) {
-            return UINT32_MAX; /* Caracter inválido */
+            return UINT32_MAX;
         }
-
-        /* Guardar en buffer */
         if (index < sizeof(buffer) - 1) {
             buffer[index++] = (char)rxChar;
         } else {
-            return UINT32_MAX; /* Overflow */
+            return UINT32_MAX;
         }
     }
-
-    /* Convertir a entero */
     return (uint32_t)strtoul(buffer, NULL, 10);
 }
 

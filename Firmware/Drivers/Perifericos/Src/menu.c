@@ -7,7 +7,8 @@
 
 #include "menu.h"
 
-
+#define MAX_OPTION_LENGTH 16
+#define MAX_OPTIONS 8
 #define Font_sizeW 11
 #define Screen_SizeW 128
 #define Screen_SizeH 64
@@ -25,13 +26,16 @@
 #define PFONT &Font_16x26
 #endif
 
-char* buffer[Screen_SizeW/Font_sizeW];
+static char buffer[MAX_OPTIONS][MAX_OPTION_LENGTH];
 
-void MENU_WriteOptionValue(uint8_t index,char* label){
-	buffer[index] = label;
+void MENU_WriteOptionValue(uint8_t index, char* label){
+    if(index < MAX_OPTIONS && label != NULL) {
+        strncpy(buffer[index], label, MAX_OPTION_LENGTH - 1);
+        buffer[index][MAX_OPTION_LENGTH - 1] = '\0';  // Asegurar null terminator
+    }
 }
 
-void MENU_screenUpdate(uint8_t option_selected){
+void MENU_ScreenUpdate(uint8_t option_selected){
 	SSD1306_Fill(BLACK);
 	for(int i=0;i<(Screen_SizeW/Font_sizeW);i++){
 		SSD1306_GotoXY(0, (Font_sizeH*i));
@@ -64,19 +68,19 @@ void MENU_ShowMsgWelcomeState(){
 void MENU_HomeMenu_ScanSelected(){
 	MENU_WriteOptionValue(0, "Escanear");
 	MENU_WriteOptionValue(1, "Enviar");
-	MENU_screenUpdate(0);
+	MENU_ScreenUpdate(0);
 }
 
 void MENU_HomeMenu_SendSelected(){
 	MENU_WriteOptionValue(0, "Escanear");
 	MENU_WriteOptionValue(1, "Enviar");
-	MENU_screenUpdate(1);
+	MENU_ScreenUpdate(1);
 }
 
 void MENU_ScanMenu_StartSelected(){
 	MENU_WriteOptionValue(0, "Iniciar");
 	MENU_WriteOptionValue(1, "");
-	MENU_screenUpdate(0);
+	MENU_ScreenUpdate(0);
 }
 
 void MENU_ShowMsgConnecting(){

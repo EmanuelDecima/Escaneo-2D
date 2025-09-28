@@ -394,16 +394,16 @@ static void MX_GPIO_Init(void)
 /*	CALLBACK BEGIN	*/
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	if(GPIO_Pin == GPIO_PIN_0){
+	if(GPIO_Pin == BTN_UP_Pin){
 		Pressing_Signal(BTN_UP_ID);
 	}
-	if(GPIO_Pin == GPIO_PIN_1){
+	if(GPIO_Pin == BTN_RETURN_Pin){
 		Pressing_Signal(BTN_RETURN_ID);
 	}
-	if(GPIO_Pin == GPIO_PIN_2){
+	if(GPIO_Pin == BTN_ENTER_Pin){
 		Pressing_Signal(BTN_ENTER_ID);
 	}
-	if(GPIO_Pin == GPIO_PIN_7){
+	if(GPIO_Pin == BTN_DOWN_Pin){
 		Pressing_Signal(BTN_DOWN_ID);
 	}
 	HAL_TIM_Base_Start_IT(&htim2);
@@ -416,16 +416,16 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM2){
-		if(Read_State(BTN_UP_ID) == BUTTON_FALLING && GPIO_ReadPin(GPIOB, GPIO_PIN_0) == GPIO_STATE_LOW){
+		if(Read_State(BTN_UP_ID) == BUTTON_FALLING && GPIO_ReadPin(BTN_UP_GPIO_Port, BTN_UP_Pin) == GPIO_STATE_LOW){
 			Pressed_Signal(BTN_UP_ID);
 		}
-		if(Read_State(BTN_DOWN_ID) == BUTTON_FALLING && GPIO_ReadPin(GPIOA, GPIO_PIN_7) == GPIO_STATE_LOW){
+		if(Read_State(BTN_DOWN_ID) == BUTTON_FALLING && GPIO_ReadPin(BTN_DOWN_GPIO_Port, BTN_DOWN_Pin) == GPIO_STATE_LOW){
 			Pressed_Signal(BTN_DOWN_ID);
 		}
-		if(Read_State(BTN_ENTER_ID) == BUTTON_FALLING && GPIO_ReadPin(GPIOB, GPIO_PIN_2) == GPIO_STATE_LOW){
+		if(Read_State(BTN_ENTER_ID) == BUTTON_FALLING && GPIO_ReadPin(BTN_ENTER_GPIO_Port, BTN_ENTER_Pin) == GPIO_STATE_LOW){
 			Pressed_Signal(BTN_ENTER_ID);
 		}
-		if(Read_State(BTN_RETURN_ID) == BUTTON_FALLING && GPIO_ReadPin(GPIOB, GPIO_PIN_1) == GPIO_STATE_LOW){
+		if(Read_State(BTN_RETURN_ID) == BUTTON_FALLING && GPIO_ReadPin(BTN_RETURN_GPIO_Port, BTN_RETURN_Pin) == GPIO_STATE_LOW){
 			Pressed_Signal(BTN_RETURN_ID);
 		}
 		HAL_TIM_Base_Stop(&htim2);

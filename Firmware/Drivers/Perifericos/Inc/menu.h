@@ -14,7 +14,7 @@
 
 /* Funciones elementales		*/
 void MENU_WriteOptionValue(uint8_t index,char* label);
-void MENU_screenUpdate(uint8_t option_selected);
+void MENU_ScreenUpdate(uint8_t option_selected);
 /* Funciones de la aplicacion	*/
 void MENU_ShowMsgInitState();
 void MENU_ShowMsgWelcomeState();

@@ -9,6 +9,12 @@
 
 #define FILTER_WIDTH 1
 #define MEASURES_DELAY 50	//Intervalo (ms) entre mediciones consecutivas
+#define HC_SR04_MIN_DISTANCE_MM    20      // 2 cm
+#define HC_SR04_MAX_DISTANCE_MM    4000    // 4 metros
+#define HC_SR04_MIN_TICKS          116      // Corresponde a 2 cm
+#define HC_SR04_MAX_TICKS          23200    // Corresponde a 4 m
+#define HC_SR04_TIMEOUT_TICKS      58800    // 10 metros (timeout)
+
 
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim);
 
@@ -20,7 +26,9 @@ bool Capture_flag = 0;
 
 /*Variables para la Aplicacion*/
 uint8_t Distance = 0;
-uint8_t Filter[FILTER_WIDTH];
+uint16_t Distance_mm = 0;
+
+uint16_t Filter[FILTER_WIDTH];
 
 /*
  * @brief Inicializacion del Modulo Timer1 Canal1 como Input Capture
@@ -63,7 +71,7 @@ static void HCSR04_Read(){
 static void HCSR04_CaptureMeasures(){
 	for(int i=0;i<FILTER_WIDTH;i++){
 		HCSR04_Read();
-		Filter[i] = Distance;
+		Filter[i] = Distance_mm;
 		HAL_Delay(MEASURES_DELAY);
 	}
 }
@@ -76,7 +84,7 @@ static void HCSR04_CaptureMeasures(){
  * @retval None
  */
 static void HCSR04_ResetFilter(){
-	for(int i=0;i<sizeof(Filter);i++){
+	for(int i=0;i<FILTER_WIDTH;i++){
 		Filter[i] = 0;
 	}
 }
@@ -120,35 +128,40 @@ uint8_t HCSR04_GetMeasure(){
  */
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
-	if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
-	{
-		if (Capture_flag==0)
-		{
-			IC_Val1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-			Capture_flag = 1;
-			__HAL_TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1, TIM_INPUTCHANNELPOLARITY_FALLING);
-		}
+    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
+    {
+        if (Capture_flag == 0)  // Rising edge
+        {
+            IC_Val1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+            Capture_flag = 1;
+            __HAL_TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1, TIM_INPUTCHANNELPOLARITY_FALLING);
+        }
+        else if (Capture_flag == 1)  // Falling edge
+        {
+            IC_Val2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+            __HAL_TIM_SET_COUNTER(htim, 0);
 
-		else if (Capture_flag==1)
-		{
-			IC_Val2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-			__HAL_TIM_SET_COUNTER(htim, 0);
+            // Cálculo de diferencia con manejo de overflow
+            if(IC_Val2 >= IC_Val1){
+                Difference = IC_Val2 - IC_Val1;
+            }else{
+                Difference = (65535 - IC_Val1) + IC_Val2 + 1;
+            }
 
-			if (IC_Val2 > IC_Val1)
-			{
-				Difference = IC_Val2-IC_Val1;
-			}
+            // Validación de rango y cálculo
+            if (Difference >= HC_SR04_MIN_TICKS && Difference <= HC_SR04_MAX_TICKS) {
+                // Cálculo preciso: 0.343 mm/µs / 2 = 0.1715 mm/µs
+                uint32_t distance_mm_x10 = (Difference * 1715) / 10000;  // Evitar float
+                Distance = (uint8_t)(distance_mm_x10 / 10);  // Para compatibilidad
+                Distance_mm = (uint16_t)distance_mm_x10;     // Nueva variable para mm
+            } else {
+                Distance = 255;        // Valor de error
+                Distance_mm = 0xFFFF;  // Valor de error
+            }
 
-			else if (IC_Val1 > IC_Val2)
-			{
-				Difference = (0xffff - IC_Val1) + IC_Val2;
-			}
-
-			Distance = Difference * .034/2;
-			Capture_flag = 0;
-
-			__HAL_TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1, TIM_INPUTCHANNELPOLARITY_RISING);
-			__HAL_TIM_DISABLE_IT(&htim3, TIM_IT_CC1);
-		}
-	}
+            Capture_flag = 0;
+            __HAL_TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1, TIM_INPUTCHANNELPOLARITY_RISING);
+            __HAL_TIM_DISABLE_IT(htim, TIM_IT_CC1);
+        }
+    }
 }

@@ -79,7 +79,7 @@ UART_Status_t UART_SendString(UART_HandleTypeDef *huart, const char *str);
  * @param  huart: handler de UART
  * @retval Número recibido (uint32_t) o UINT32_MAX en caso de error
  */
-uint32_t UART_ReadNumber(UART_HandleTypeDef *huart);
+uint32_t UART_ReadNumber(UART_HandleTypeDef *huart, uint32_t Timeout);
 
 /**
  * @brief  Enviar un número entero a traves de UART (modo polling)

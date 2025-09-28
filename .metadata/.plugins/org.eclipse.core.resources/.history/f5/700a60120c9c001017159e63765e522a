@@ -1,0 +1,125 @@
+/**
+ * @file    mef.c
+ * @brief   Implementación de la maquina de estados finita
+ */
+
+#include "mef.h"
+
+extern I2C_HandleTypeDef hi2c1;
+
+extern TIM_HandleTypeDef htim1;
+
+extern UART_HandleTypeDef huart1;
+
+typedef enum {
+	INIT,
+	WELCOME,
+	HOME_MENU_SCAN_SELECTED,
+	SCAN_MENU_START_SELECTED,
+	SCANNING,
+	HOME_MENU_SEND_SELECTED,
+	SEND_MENU_WAITING,
+	SENDING,
+	CONNECTION_FAILED
+} MefState_t;
+
+MefState_t MEF_Actual;
+uint16_t measure_mm;
+uint16_t buffer_measures_cm_vector[STEPS_PER_REVOLUTION];
+MotorPAP_HandleTypeDef motor1;
+
+void MEF_Init(){
+	MEF_Actual = INIT;
+}
+
+void MEF_Update(int8_t btn_pressed){
+	switch(MEF_Actual){
+		case INIT:
+			  SSD1306_Init();
+			  MENU_ShowMsgInitState();
+			  MotorPAP_Init(&motor1, MOTOR_GPIO_Port, MOTOR_A_Pin, MOTOR_B_Pin, MOTOR_C_Pin, MOTOR_D_Pin);
+			  HCSR04_Init();
+			  HAL_Delay(1000);
+			  MEF_Actual = WELCOME;
+			break;
+
+		case WELCOME:
+			MENU_ShowMsgWelcomeState();
+			HAL_Delay(1000);
+			MENU_HomeMenu_ScanSelected();
+			MEF_Actual = HOME_MENU_SCAN_SELECTED;
+			break;
+
+		case HOME_MENU_SCAN_SELECTED:
+			if(btn_pressed == BTN_DOWN_ID){
+				MENU_HomeMenu_SendSelected();
+				MEF_Actual = HOME_MENU_SEND_SELECTED;
+			}
+			if(btn_pressed == BTN_ENTER_ID){
+				MENU_ScanMenu_StartSelected();
+				MEF_Actual = SCAN_MENU_START_SELECTED;
+			}
+			break;
+
+		case SCAN_MENU_START_SELECTED:
+			if(btn_pressed == BTN_ENTER_ID){
+				MENU_ShowMsgScanning();
+				MEF_Actual = SCANNING;
+			}
+			if(btn_pressed == BTN_RETURN_ID){
+				MENU_HomeMenu_ScanSelected();
+				MEF_Actual = HOME_MENU_SCAN_SELECTED;
+			}
+			break;
+
+		case SCANNING:
+			for(int i=0; i<STEPS_PER_REVOLUTION; i++){
+				measure_mm = HCSR04_GetMeasure();
+				buffer_measures_mm_vector[i] = measure_mm;
+				MotorPAP_StepForward(&motor1);
+			}
+			HAL_Delay(100);
+			MENU_HomeMenu_ScanSelected();
+			MEF_Actual = HOME_MENU_SCAN_SELECTED;
+			break;
+
+		case HOME_MENU_SEND_SELECTED:
+		    if(btn_pressed == BTN_UP_ID){
+		    	MENU_HomeMenu_ScanSelected();
+				MEF_Actual = HOME_MENU_SCAN_SELECTED;
+			}
+		    if(btn_pressed == BTN_ENTER_ID){
+		    	MENU_ShowMsgConnecting();
+				MEF_Actual = SEND_MENU_WAITING;
+			}
+			break;
+
+		case SEND_MENU_WAITING:
+			MENU_ShowMsgConnecting();
+			if (UART_Handshake(&huart1,1000) == HAL_OK){
+				MENU_ShowMsgSendingData();
+				MEF_Actual = SENDING;
+			}else{
+				MENU_ShowMsgConnectionError();
+				MEF_Actual = CONNECTION_FAILED;
+			}
+			break;
+
+		case SENDING:
+			for(int i=0;i<STEPS_PER_REVOLUTION;i++){
+				UART_SendNumber(&huart1, buffer_measures_cm_vector[i]);
+			}
+			MENU_HomeMenu_SendSelected();
+			MEF_Actual = HOME_MENU_SEND_SELECTED;
+			break;
+
+		case CONNECTION_FAILED:
+			HAL_Delay(1000);
+			MEF_Actual = HOME_MENU_SEND_SELECTED;
+			break;
+
+		default:
+			MEF_Actual = INIT;
+			break;
+	}
+}

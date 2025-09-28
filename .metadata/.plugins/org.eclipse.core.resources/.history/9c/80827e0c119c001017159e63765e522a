@@ -1,0 +1,116 @@
+/*
+ * menu.c
+ *
+ *  Created on: Sep 4, 2025
+ *      Author: Estudiante
+ */
+
+#include "menu.h"
+
+#define MAX_OPTION_LENGTH 16
+#define MAX_OPTIONS 8
+#define Font_sizeW 11
+#define Screen_SizeW 128
+#define Screen_SizeH 64
+
+#if Font_sizeW == 7
+#define Font_sizeH 10
+#define PFONT &Font_7x10
+#endif
+#if Font_sizeW == 11
+#define Font_sizeH 18
+#define PFONT &Font_11x18
+#endif
+#if Font_sizeW == 16
+#define Font_sizeH 26
+#define PFONT &Font_16x26
+#endif
+
+static char buffer[MAX_OPTIONS][MAX_OPTION_LENGTH];
+
+void MENU_WriteOptionValue(uint8_t index, char* label){
+    if(index < MAX_OPTIONS && label != NULL) {
+        strncpy(buffer[index], label, MAX_OPTION_LENGTH - 1);
+        buffer[index][MAX_OPTION_LENGTH - 1] = '\0';  // Asegurar null terminator
+    }
+}
+
+void MENU_ScreenUpdate(uint8_t option_selected){
+	SSD1306_Fill(BLACK);
+	for(int i=0;i<(Screen_SizeW/Font_sizeW);i++){
+		SSD1306_GotoXY(0, (Font_sizeH*i));
+		if(i==option_selected){
+			SSD1306_DrawFilledRectangle(0, (i*Font_sizeH-1), Screen_SizeW, (Font_sizeH), WHITE);
+			SSD1306_Puts(buffer[i], PFONT, BLACK);
+		}else{
+			SSD1306_Puts(buffer[i], PFONT, WHITE);
+		}
+	}
+	SSD1306_UpdateScreen();
+}
+
+void MENU_ShowMsgInitState(){
+	SSD1306_Fill(BLACK);
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("Iniciando", &Font_11x18, WHITE);
+	SSD1306_GotoXY(0, 20);
+	SSD1306_Puts("el Sistema", &Font_11x18, WHITE);
+	SSD1306_UpdateScreen();
+}
+
+void MENU_ShowMsgWelcomeState(){
+	SSD1306_Fill(BLACK);
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("Bienvenido", &Font_11x18, WHITE);
+	SSD1306_UpdateScreen();
+}
+
+void MENU_HomeMenu_ScanSelected(){
+	MENU_WriteOptionValue(0, "Escanear");
+	MENU_WriteOptionValue(1, "Enviar");
+	MENU_ScreenUpdate(0);
+}
+
+void MENU_HomeMenu_SendSelected(){
+	MENU_WriteOptionValue(0, "Escanear");
+	MENU_WriteOptionValue(1, "Enviar");
+	MENU_ScreenUpdate(1);
+}
+
+void MENU_ScanMenu_StartSelected(){
+	MENU_WriteOptionValue(0, "Iniciar");
+	MENU_WriteOptionValue(1, "");
+	MENU_screenUpdate(0);
+}
+
+void MENU_ShowMsgConnecting(){
+	SSD1306_Fill(BLACK);
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("Conectando", &Font_11x18, WHITE);
+	SSD1306_UpdateScreen();
+}
+
+void MENU_ShowMsgSendingData(){
+	SSD1306_Fill(BLACK);
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("Enviando", &Font_11x18, WHITE);
+	SSD1306_GotoXY(0, 20);
+	SSD1306_Puts("Datos", &Font_11x18, WHITE);
+	SSD1306_UpdateScreen();
+}
+
+void MENU_ShowMsgConnectionError(){
+	SSD1306_Fill(BLACK);
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("Conexion", &Font_11x18, WHITE);
+	SSD1306_GotoXY(0, 20);
+	SSD1306_Puts("Fallida", &Font_11x18, WHITE);
+	SSD1306_UpdateScreen();
+}
+
+void MENU_ShowMsgScanning(){
+	SSD1306_Fill(BLACK);
+	SSD1306_GotoXY(0, 0);
+	SSD1306_Puts("Escaneando", &Font_11x18, WHITE);
+	SSD1306_UpdateScreen();
+}
